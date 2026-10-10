@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "note": "Lexicon used by humanize.py and detect.py. Origin: Jakeschincariol/linkedin-agent-skill (MIT), plus a spoken short-form block added for the virality skill. Edit freely, it is meant to be yours.",
+  "note": "Lexicon used by humanize.py and detect.py. Origin: Jakeschincariol/linkedin-agent-skill (MIT), plus a spoken short-form block added for the virality skill. Edit freely, it is meant to be yours. Ness edition: merged with the extended list from nessalazne/instagram-agent-skill (vibrant, let's dive in, game changer, I hope this helps, the announcement-opener structure and the Instagram caption block). Upstream entries win on a clash.",
   "invisible": [
     {
       "cp": "U+200B",
@@ -86,6 +86,11 @@
       "cp": "U+2002",
       "name": "EN SPACE",
       "action": "space"
+    },
+    {
+      "cp": "U+2063",
+      "name": "INVISIBLE SEPARATOR",
+      "action": "delete"
     }
   ],
   "typographic": [
@@ -550,6 +555,76 @@
       "find": "it is worth noting that",
       "replace": "note that",
       "family": "connectives"
+    },
+    {
+      "find": "skyrocket",
+      "replace": "raise",
+      "family": "verbs"
+    },
+    {
+      "find": "unleash",
+      "replace": "release",
+      "family": "verbs"
+    },
+    {
+      "find": "captivating",
+      "replace": "interesting",
+      "family": "adjectives"
+    },
+    {
+      "find": "stunning",
+      "replace": "good",
+      "family": "adjectives"
+    },
+    {
+      "find": "breathtaking",
+      "replace": "striking",
+      "family": "adjectives"
+    },
+    {
+      "find": "iconic",
+      "replace": "known",
+      "family": "adjectives"
+    },
+    {
+      "find": "must-have",
+      "replace": "worth having",
+      "family": "adjectives"
+    },
+    {
+      "find": "no-brainer",
+      "replace": "obvious",
+      "family": "nouns"
+    },
+    {
+      "find": "hidden gem",
+      "replace": "good one",
+      "family": "nouns"
+    },
+    {
+      "find": "secret sauce",
+      "replace": "the actual method",
+      "family": "nouns"
+    },
+    {
+      "find": "ultimate guide",
+      "replace": "guide",
+      "family": "nouns"
+    },
+    {
+      "find": "level up",
+      "replace": "improve",
+      "family": "verbs"
+    },
+    {
+      "find": "hack",
+      "replace": "trick",
+      "family": "nouns"
+    },
+    {
+      "find": "vibrant",
+      "replace": "lively",
+      "family": "adjectives"
     }
   ],
   "phrases": [
@@ -777,6 +852,146 @@
       "find": "supercharge",
       "replace": "speed up",
       "family": "spoken"
+    },
+    {
+      "find": "stop scrolling",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "don't scroll past this",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "in this video i'm going to show you",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "watch till the end",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "you won't believe",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "nobody is talking about this",
+      "replace": "few people do this",
+      "family": "openers"
+    },
+    {
+      "find": "no one is talking about this",
+      "replace": "few people do this",
+      "family": "openers"
+    },
+    {
+      "find": "this changed everything",
+      "replace": "this worked",
+      "family": "openers"
+    },
+    {
+      "find": "this is your sign to",
+      "replace": "",
+      "family": "openers"
+    },
+    {
+      "find": "little did i know",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "fast forward to today",
+      "replace": "now",
+      "family": "connectives"
+    },
+    {
+      "find": "and just like that",
+      "replace": "",
+      "family": "connectives"
+    },
+    {
+      "find": "the rest is history",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "run don't walk",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "trust me on this one",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "don't sleep on this",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "follow for more",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "hit follow for more",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "double tap if",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "tag someone who needs this",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "let me know in the comments",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "share this with someone who needs it",
+      "replace": "",
+      "family": "closers"
+    },
+    {
+      "find": "the algorithm loves",
+      "replace": "Instagram pushes",
+      "family": "nouns"
+    },
+    {
+      "find": "beat the algorithm",
+      "replace": "get reach",
+      "family": "nouns"
+    },
+    {
+      "find": "go viral overnight",
+      "replace": "get reach",
+      "family": "nouns"
+    },
+    {
+      "find": "let's dive into",
+      "replace": "here is",
+      "family": "openers"
+    },
+    {
+      "find": "dive in",
+      "replace": "start",
+      "family": "openers"
+    },
+    {
+      "find": "i hope this helps",
+      "replace": "",
+      "family": "closers"
     }
   ],
   "structures": [
@@ -857,6 +1072,30 @@
       "regex": "(?i)^\\s*(?:stop scrolling|don'?t scroll)",
       "name": "\"Stop scrolling\"",
       "fix": "Open on the payoff. Asking for attention proves you have not earned it."
+    },
+    {
+      "id": "in-this-video",
+      "regex": "(?i)\\b(?:in (?:this|today'?s) (?:video|reel|post)|today i'?m going to show you|i'?m going to (?:show|teach) you how)\\b",
+      "name": "Video preamble (\"in this video I'm going to show you\")",
+      "fix": "Delete it and start at the payoff. The first two seconds decide the whole reel."
+    },
+    {
+      "id": "emoji-bullets",
+      "regex": "(?m)^\\s*[\\U0001F300-\\U0001FAFF\u2705\u27a1\u2b05\u2714\u2728]\\s*\\S",
+      "name": "Emoji bullet list",
+      "fix": "Use a hyphen or a line break. Emoji bullets are the single most template-looking thing in a caption."
+    },
+    {
+      "id": "follow-bait",
+      "regex": "(?i)\\b(?:follow for more|tag someone who|double tap if|share this if|comment below if)\\b",
+      "name": "Reflex follow or tag bait",
+      "fix": "Ask for the one action this post actually earns. The generic ask trains the audience to ignore every ask."
+    },
+    {
+      "id": "announcement-opener",
+      "regex": "(?im)^(?:let's dive|in this post|in this reel|today i want to|i'm excited to (?:share|announce))\\b.*$",
+      "name": "Announcement opener",
+      "fix": "Delete the line. Start on the first thing that is actually true."
     }
   ]
 }

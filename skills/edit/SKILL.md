@@ -30,6 +30,7 @@ ffmpeg/runtime failure, 2 on bad input, 3 when a program or feature is missing.
 | `deadspace.py` | cuts silences, plus fillers and retakes with a transcript; frame-accurate, crossfaded joins | `<name>.cut.mp4`, `.edl.json`, `.words.json` |
 | `captions.py` | transcribes (faster-whisper, optional) or reads word timings; 1-3 word phrases | `.srt`, `.ass`, `.cues.json`, `.words.json`, `.phrases.txt` |
 | `stopmotion.py` | frames folder or live clip to stop motion: 8/10/12 drawings/s, holds, seeded jitter | `.mp4` |
+| `fit.py` | Ness edition: gets a cut under the length cap (58 s) with a gentle speed-up, never a trim; rescales word timings | `<name>.fit.mp4`, `.fit.words.json`, `.fit.phrases.txt` |
 
 ## 0. Setup check (once per session)
 
@@ -105,6 +106,23 @@ the speaker's best delivery, keep laughs and reactions after punchlines.
 
 After rendering, `edit/take.cut.words.json` holds the words on the cut timeline. Use it for
 captions and visuals; never re-transcribe the cut.
+
+## 4b. Fit to length (Ness edition)
+
+Shorts, Reels and TikTok reward videos under a minute. After the cut, check the length and fit it:
+
+```bash
+python3 "$T/fit.py" edit/take.cut.mp4 --words edit/take.cut.words.json -o edit/take.fit.mp4
+```
+- At or under `--target` (default 58 s) it copies through unchanged.
+- A little over: it speeds picture and sound up together by the smallest factor that fits
+  (pitch kept, `--max-speed` 1.1 by default) and writes `take.fit.words.json` on the new
+  timeline. From here on, use `take.fit.mp4` and `take.fit.words.json` wherever the steps below
+  say `take.cut.*`.
+- Too far over: it writes nothing, exits 1, and lists the longest middle phrases as cut
+  candidates (it never suggests the hook or the CTA). Cut in the EDL or rerun deadspace with
+  `--pace tight`, then run fit.py again.
+- It never trims the end to hit the number. The CTA is at the end.
 
 ## 5. Pace and structure
 

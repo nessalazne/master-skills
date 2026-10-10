@@ -49,12 +49,18 @@ def main():
     for ch, vids in by.items():
         views = [float(v.get("views", 0) or 0) for v in vids]
         med = statistics.median(views) if views else 0
-        if len(vids) < 4:
+        # Ness edition: honour a supplied median (collect.py's `median` column, e.g. from
+        # fetch_instagram.py swipe) when there are too few posts to compute one, as the
+        # skill's failure handling promises. Four or more posts still use the computed median.
+        supplied = [float(v["median"]) for v in vids if v.get("median")]
+        if len(vids) < 4 and supplied:
+            med = statistics.median(supplied)
+        elif len(vids) < 4:
             thin.append((ch, len(vids)))
             continue
         for v in vids:
             m = (float(v.get("views", 0) or 0) / med) if med else 0
-            out.append({"channel": ch, "title": v.get("title", ""), "views": int(v.get("views", 0) or 0),
+            out.append({"channel": ch, "title": v.get("title") or v.get("hook") or "", "views": int(v.get("views", 0) or 0),
                         "median": int(med), "multiple": round(m, 2),
                         "formula": classify(v.get("hook") or v.get("title", "")), "url": v.get("url", "")})
     out = [r for r in out if r["multiple"] >= lo]

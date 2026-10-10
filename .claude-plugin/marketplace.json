@@ -1,18 +1,18 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "master-skills",
-  "description": "Three Claude master skills: edit, virality, build",
+  "description": "Three Claude master skills (edit, virality, build) plus virality-publish. Ness edition.",
   "owner": {
-    "name": "Jake Schincariol",
-    "url": "https://opusjake.ai"
+    "name": "Ness Alazne",
+    "url": "https://builds.digicuratoragency.com"
   },
   "plugins": [
     {
       "name": "master-skills",
-      "description": "Three Claude master skills: edit your videos, make them go viral, and build anything. Free, MIT.",
+      "description": "Jake's three Claude master skills (edit, virality, build), Ness edition: research that fetches itself, a publish step with a comment-keyword DM, a longer humanizer list, and fit-to-58s. Free, MIT.",
       "source": "./",
       "category": "productivity",
-      "homepage": "https://github.com/Jakeschincariol/master-skills"
+      "homepage": "https://github.com/nessalazne/master-skills"
     }
   ]
 }

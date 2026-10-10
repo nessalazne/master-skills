@@ -7,7 +7,9 @@ description: >-
   creator's own median, names the hook formula, scores hooks, and strips AI tells. Use when the
   user says "make me a viral video", "write a reel/TikTok/short", "what's working in my niche",
   "find viral videos", "rewrite this in my voice", "give me a hook", "script my next video", or
-  wants content that performs. Fuses Jake's LinkedIn and YouTube agent skills.
+  wants content that performs. Fuses Jake's LinkedIn and YouTube agent skills. Ness edition:
+  fetches the research itself (YouTube Data API, Apify for Instagram) and hands off to
+  /virality-publish to post and wire the comment-keyword DM.
 ---
 
 # virality
@@ -25,6 +27,9 @@ python3 tools/speech.py --line "I saved \$400 on flights." --wpm 170        # ti
 python3 tools/humanize.py draft.txt --report -o clean.txt                   # strip AI tells
 python3 tools/detect.py draft.txt clean.txt                                 # 5-check panel
 python3 tools/title.py --title "..." --cover "THREE WORDS"                  # title + cover
+python3 tools/fetch_youtube.py @a @b @c --max 30 --json > yt.json          # Ness: fetch Shorts
+python3 tools/fetch_instagram.py swipe TAG --max 30 --out ig.tsv           # Ness: fetch Reels
+python3 tools/results.py                                                   # Ness: your own views
 ```
 
 Paths are relative to this skill folder. Write the user's working files to
@@ -63,6 +68,25 @@ If missing, fill them from `templates/audience.md` and `templates/voice.md`:
 
 Goal: 30+ posts across 6 to 12 creators (from `audience.md`), at least 4 per creator, recent
 (last 90 days). Sources, in order of preference:
+
+0. **Fetch it (Ness edition).** With keys in `~/.claude/virality/.env`, nobody pastes:
+
+   ```bash
+   python3 tools/results.py                                    # your own posted videos, if any
+   python3 tools/fetch_youtube.py @me @rival1 @rival2 --max 30 --json > virality/<slug>/yt.json
+   python3 tools/fetch_instagram.py swipe TAG --max 30 --out virality/<slug>/ig.tsv
+   python3 tools/collect.py ~/.claude/virality/results.json virality/<slug>/yt.json \
+       virality/<slug>/ig.tsv -o virality/<slug>/candidates.json
+   ```
+
+   `fetch_youtube.py` is the official YouTube Data API with the user's own free key
+   (`YOUTUBE_API_KEY`); use @handles, since a name lookup costs 100x the quota.
+   `fetch_instagram.py` uses Apify's no-login scrapers (`APIFY_TOKEN`): `swipe` pulls the reels
+   under a hashtag plus each owner's median, so one reel per account still ranks. It prints the
+   cost first (about $0.16 for 30 reels and their owners); `--dry-run` spends nothing. Ask
+   before anything over $1.
+   `results.py` reads the URLs `/virality-publish` logged and fetches their current views.
+   No keys? Use sources 1 to 3 below; everything works by paste.
 
 1. **The user's own posts.** Their last 20 to 30 with view counts. Their own outliers are the
    strongest evidence that exists.
@@ -125,8 +149,9 @@ python3 tools/detect.py virality/<slug>/draft.txt virality/<slug>/clean.txt
 ```
 
 `humanize.py` fixes invisible characters, typography (em dashes) and the slop lexicon
-automatically, and FLAGS structural tells ("it's not just X, it's Y", rule-of-three, clickbait
-openers) for you to rewrite by hand. Aim for PASS on `detect.py`. These are local heuristics,
+(`tools/slop.json`, the Ness edition list: Jake's plus vibrant, "let's dive in", "game changer",
+reflex follow bait and the announcement opener) automatically, and FLAGS structural tells ("it's not just X, it's Y", rule-of-three, clickbait
+openers) for you to rewrite by hand. Rewrite each flag by hand with [HUMANIZER.md](HUMANIZER.md). Aim for PASS on `detect.py`. These are local heuristics,
 not GPTZero or any detector API; never tell the user their text is "undetectable".
 
 ## Step 5: score and pick the hook
@@ -188,6 +213,11 @@ Shoot it, or change it?
 Append one line to `~/.claude/virality/log.md` on "shoot it": date, formula, hook, keyword. Next
 run, read it and ask for the views so the user's own results feed step 2.
 
+Once the video is shot and edited (/edit), offer **/virality-publish** (Ness edition): it posts the
+render with this script's caption and title through Blotato and, with the user's link, turns
+the comment keyword into an automatic DM. It only runs after the user types "publish". Its
+post URLs land in the same log, so `tools/results.py` can fetch the views next time.
+
 ## Failure handling
 
 - **No data / no tools available**: no yt-dlp, no paste. Ask the user for 10+ posts from their
@@ -210,7 +240,9 @@ run, read it and ask for the views so the user's own results feed step 2.
   calibration) and a creator's hits from their own misses barely at all (AUC 0.56).
 - Outlier multiples from a hand-collected batch are evidence, not proof. Formats decay; re-run
   step 2 monthly.
-- Nothing logs in, posts, comments, follows or DMs. These tools write; the user publishes.
+- Nothing in this skill logs in, posts, comments, follows or DMs. Posting and the keyword DM
+  live in /virality-publish (Ness edition), which goes through Blotato and only after the user
+  types "publish". The fetch tools read public data with the user's own API keys.
 
 ## Credits
 
@@ -226,3 +258,8 @@ calibrated on short-form hooks. Each copied file carries an origin header. The f
 /plugin marketplace add Jakeschincariol/linkedin-agent-skill
 /plugin marketplace add Jakeschincariol/youtube-agent-skill
 ```
+
+Ness edition additions: `fetch_youtube.py` (from nessalazne/youtube-agent-skill), `fetch_instagram.py`
+(from nessalazne/instagram-agent-skill, actor choices adapted from sergebulaev/instagram-skills,
+MIT), `results.py`, the merged `slop.json`, `HUMANIZER.md`, and a two-line fix in `swipe.py` so a
+supplied median ranks creators with fewer than four posts, as the failure handling above says.
