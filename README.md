@@ -1,7 +1,5 @@
 # Master skills (Ness edition)
 
-Four Claude master skills: edit your videos, make them go viral, build anything, and post it. Free, MIT.
-
 `skills/edit` `skills/virality` `skills/build` `skills/virality-publish`
 
 **Edit** cuts the dead space, adds captions and dynamic visuals, and generates any type of stop motion. **Virality** finds what's working in your niche and rewrites it in your voice as a shoot-ready script. **Build** takes you from "I want a site that does X" to a live, tested site.
