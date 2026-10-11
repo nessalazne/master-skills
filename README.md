@@ -1,12 +1,12 @@
 # Master skills (Ness edition)
 
-Jake Schincariol's three Claude master skills, plus a fourth that posts. Free, MIT.
+Four Claude master skills: edit your videos, make them go viral, build anything, and post it. Free, MIT.
 
 `skills/edit` `skills/virality` `skills/build` `skills/virality-publish`
 
 **Edit** cuts the dead space, adds captions and dynamic visuals, and generates any type of stop motion. **Virality** finds what's working in your niche and rewrites it in your voice as a shoot-ready script. **Build** takes you from "I want a site that does X" to a live, tested site.
 
-This edition keeps all three and changes four things:
+What's different from the original pack:
 
 1. **Research fetches itself.** Virality's step 2 used to mean reading view counts off your phone and pasting them in. Now `fetch_youtube.py` pulls any channel's Shorts through the YouTube Data API, and `fetch_instagram.py` pulls the reels under a hashtag through Apify, each with the creator's median views so the outlier ranking works. `results.py` reads back the views on what you posted, so your next script starts from your own numbers.
 2. **It posts, and the CTA works.** Jake's version stops at the script. `/virality-publish` posts the finished video to Instagram, TikTok and YouTube (plus Facebook, LinkedIn, X, Threads and Bluesky if you want) through [Blotato](https://blotato.com/?ref=ness). With `--dm-url`, everyone who comments your keyword on Instagram or Facebook gets a DM with your link. Nothing posts until you type "publish".
